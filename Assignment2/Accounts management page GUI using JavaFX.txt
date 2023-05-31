@@ -1,0 +1,67 @@
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class AccountsManagementPage extends Application {
+    private TableView<Account> tableView;
+    private ObservableList<Account> accountList;
+    private TextField nameField;
+    private TextField emailField;
+    
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Accounts Management");
+        
+        // Create the TableView and columns
+        tableView = new TableView<>();
+        TableColumn<Account, Integer> idColumn = new TableColumn<>("ID");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<Account, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Account, String> emailColumn = new TableColumn<>("Email");
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tableView.getColumns().addAll(idColumn, nameColumn, emailColumn);
+        
+        // Create the text fields for input
+        nameField = new TextField();
+        nameField.setPromptText("Name");
+        emailField = new TextField();
+        emailField.setPromptText("Email");
+        
+        // Create buttons
+        Button createButton = new Button("Create");
+        createButton.setOnAction(e -> createAccount());
+        Button updateButton = new Button("Update");
+        updateButton.setOnAction(e -> updateAccount());
+        Button deleteButton = new Button("Delete");
+        deleteButton.setOnAction(e -> deleteAccount());
+        
+        // Create the GridPane layout
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10));
+        gridPane.setVgap(8);
+        gridPane.setHgap(10);
+        gridPane.add(new Label("Name:"), 0, 0);
+        gridPane.add(nameField, 1, 0);
+        gridPane.add(new Label("Email:"), 0, 1);
+        gridPane.add(emailField, 1, 1);
+        gridPane.add(createButton, 0, 2);
+        gridPane.add(updateButton, 1, 2);
+        gridPane.add(deleteButton, 2, 2);
+        
+        // Create the main layout
+        GridPane mainLayout = new GridPane();
+        mainLayout.setPadding(new Insets(10));
+        mainLayout.setVgap(10);
+        mainLayout.setHgap(10);
+        mainLayout.add
